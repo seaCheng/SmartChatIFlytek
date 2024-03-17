@@ -1,0 +1,41 @@
+﻿  Building Custom Rule C:/Users/Administrator/Desktop/cbdFur-88/cbdFurRobot/CMakeLists.txt
+  audiocontroler.cpp
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Audiocontroler.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\audiocontroler.cpp(40,1): warning C4267: “return”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\audiocontroler.cpp(64,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\audiocontroler.cpp(64,1): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\audiocontroler.cpp(206,24): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\audiocontroler.cpp(284,24): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\audiocontroler.cpp(367,73): warning C4267: “参数”: 从“size_t”转换到“uint32_t”，可能丢失数据
+  Encoding.cpp
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Encoding.cpp(9,70): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Encoding.cpp(11,86): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Encoding.cpp(25,87): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Encoding.cpp(27,104): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Encoding.cpp(35,81): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Encoding.cpp(37,98): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Encoding.cpp(67,72): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Encoding.cpp(69,87): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  vocieai-vcs-api.cpp
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Audiocontroler.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\spark\sc_type.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\spark\sc_plugins.h(53,17): warning C4251: “SparkChain::BasePlugin::mName”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“SparkChain::BasePlugin”的客户端使用
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4871): message : 参见“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”的声明
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\spark\sc_plugins.h(54,17): warning C4251: “SparkChain::BasePlugin::mDescription”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“SparkChain::BasePlugin”的客户端使用
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4871): message : 参见“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”的声明
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\spark\sc_plugins.h(55,17): warning C4251: “SparkChain::BasePlugin::mPrompt”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“SparkChain::BasePlugin”的客户端使用
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xstring(4871): message : 参见“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”的声明
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\spark\sc_plugins.h(73,44): warning C4251: “SparkChain::Plugins::mPlugins”: class“std::list<std::shared_ptr<SparkChain::BasePlugin>,std::allocator<std::shared_ptr<SparkChain::BasePlugin>>>”需要有 dll 接口由 class“SparkChain::Plugins”的客户端使用
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\spark\sc_plugins.h(69): message : 参见“std::list<std::shared_ptr<SparkChain::BasePlugin>,std::allocator<std::shared_ptr<SparkChain::BasePlugin>>>”的声明
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\spark\sc_error.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\vocieai-vcs-api.cpp(135,3): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\vocieai-vcs-api.cpp(227,42): warning C4267: “初始化”: 从“size_t”转换到“unsigned int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\vocieai-vcs-api.cpp(269,41): warning C4267: “初始化”: 从“size_t”转换到“unsigned int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\vocieai-vcs-api.cpp(238,6): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\vocieai-vcs-api.cpp(277,5): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\vocieai-vcs-api.cpp(340,54): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\vocieai-vcs-api.cpp(421,56): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  rtaudio.cpp
+  正在生成代码...
+    正在创建库 C:/Users/Administrator/Desktop/cbdFur-88/cbdFurRobot/Release/SmartTalkRobot.lib 和对象 C:/Users/Administrator/Desktop/cbdFur-88/cbdFurRobot/Release/SmartTalkRobot.exp
+  SmartTalkRobot.vcxproj -> C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\Release\SmartTalkRobot.dll

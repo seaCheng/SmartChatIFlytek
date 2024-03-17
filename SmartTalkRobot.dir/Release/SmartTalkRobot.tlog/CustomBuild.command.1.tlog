@@ -1,0 +1,10 @@
+^C:\USERS\ADMINISTRATOR\DESKTOP\CBDFUR-88\CBDFURROBOT\CMAKELISTS.TXT
+setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Administrator/Desktop/cbdFur-88/cbdFurRobot -BC:/Users/Administrator/Desktop/cbdFur-88/cbdFurRobot --check-stamp-file C:/Users/Administrator/Desktop/cbdFur-88/cbdFurRobot/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

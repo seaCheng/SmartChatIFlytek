@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\audiocontroler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\Encoding.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\vocieai-vcs-api.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\rtaudio\rtaudio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\timetool.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\SmartTalkRobot\utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Administrator\Desktop\cbdFur-88\cbdFurRobot\lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{8BC17524-BA51-3BF2-8D47-8B0C517DB936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{0BCD1D32-8FD8-3213-BAE9-8CBFB5EE00F0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
