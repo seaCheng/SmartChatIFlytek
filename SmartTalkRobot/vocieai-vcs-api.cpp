@@ -33,6 +33,8 @@
 AudioControler g_AudioCtrl;
 char szDevSerialNo[512];
 
+std::vector<char> sysPcmData;
+
 using namespace SparkChain;
 using namespace std;
 
@@ -155,8 +157,12 @@ int VCS_cb_ivw_msg_proc(const char* sessionID, int msg, int param1, int param2, 
 	else if (MSP_IVW_MSG_WAKEUP == msg) //唤醒成功消息
 	{
 		printf("被唤醒了");
+		
+
+		//VCS_playPcmFile("./wav/answer.pcm");
+		VCS_playPcm(sysPcmData.data(), sysPcmData.size());
 		VCS_ClearRecordData();
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		//std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		const char* asrSession_begin_params = "sub = iat, domain = iat, language = zh_cn, accent = mandarin, sample_rate = 16000, result_type = plain, result_encoding = gb2312";
 		int				errcode = MSP_SUCCESS;
 		const char* asrSession_id = QISRSessionBegin(NULL, asrSession_begin_params, &errcode); //听写不需要语法，第一个参数为NULL
@@ -241,7 +247,7 @@ int VCS_cb_ivw_msg_proc(const char* sessionID, int msg, int param1, int param2, 
 
 			if (MSP_EP_AFTER_SPEECH == ep_stat)
 				break;
-			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+			//std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		}
 		
 		VCS_ClearRecordData();
@@ -276,7 +282,7 @@ int VCS_cb_ivw_msg_proc(const char* sessionID, int msg, int param1, int param2, 
 				}
 				strncat(rec_result, rslt, rslt_len);
 			}
-			std::this_thread::sleep_for(std::chrono::milliseconds(150));
+			//std::this_thread::sleep_for(std::chrono::milliseconds(150));
 		}
 		printf("\n语音听写结束\n");
 		printf("=============================================================\n");
@@ -293,6 +299,36 @@ int VCS_cb_ivw_msg_proc(const char* sessionID, int msg, int param1, int param2, 
 	return 0;
 }
 
+VCS_API void VCS_initialSysPcm()
+{
+	
+	
+	FILE* pFile;
+	long lSize;
+	char* buffer;
+	size_t result;
+
+	pFile = fopen("./wav/answer.pcm", "rb");
+	if (pFile == NULL) { fputs("File error", stderr); return; }
+
+	// obtain file size:
+	fseek(pFile, 0, SEEK_END);
+	lSize = ftell(pFile);
+	rewind(pFile);
+
+	sysPcmData.resize(lSize);
+
+	
+	// copy the file into the buffer:
+	result = fread(sysPcmData.data(), 1, lSize, pFile);
+	if (result != lSize) { fputs("Reading error", stderr); return; }
+
+	/* the whole file is now loaded in the memory buffer. */
+
+	// terminate
+	fclose(pFile);
+
+}
 VCS_API void VCS_SparkInitial()
 {
 	// 全局初始化
@@ -301,6 +337,8 @@ VCS_API void VCS_SparkInitial()
 		->apiKey("9bf75f09c13d617c350f861f7e298a8f")        // 你的apikey
 		->apiSecret("MTQ4Mjg0NGExNWEwNzg2YTY2MzJiYWY3"); // 你的apisecret
 	int ret = SparkChain::init(config);
+
+	VCS_initialSysPcm();
 }
 
 
@@ -349,6 +387,11 @@ void VCS_SparkPost(const char* paszFilePath)
 	}
 }
 
+
+void VCS_playPcmFile(char* sFile)
+{
+	g_AudioCtrl.startPlayPcm(sFile);
+}
 void VCS_playPcm(char* pcmData, int len)
 {
 	g_AudioCtrl.startPlay(pcmData, len);

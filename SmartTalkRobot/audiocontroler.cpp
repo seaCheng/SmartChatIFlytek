@@ -7,12 +7,20 @@
 #include <iostream>
 #include <fstream> // 包含头文件 fstream
 
+#include "Encoding.h"
+
 #ifdef _WIN32
-#define gDeviceName "Y05B"
+#define gDeviceNameOut "扬声器 (Y05B)"
+#define gDeviceNameIn "麦克风 (Y05B)"
 #else
-  #define gDeviceName "Y05B"
+#define gDeviceNameOut "扬声器 (Y05B)"
+#define gDeviceNameIn "麦克风 (Y05B)"
 #endif
 
+struct OutputData {
+    FILE* fd;
+    unsigned int channels;
+};
 
 typedef int16_t MY_TYPE;
 #define FORMAT RTAUDIO_SINT16
@@ -20,6 +28,8 @@ typedef int16_t MY_TYPE;
 
 static int input(void */*outputBuffer*/, void *inputBuffer, unsigned int nBufferSize, double streamTime, RtAudioStreamStatus status, void *userdata);
 static int output(void*/*outputBuffer*/, void* inputBuffer, unsigned int nBufferSize, double streamTime, RtAudioStreamStatus status, void* userdata);
+
+static int outputPcm(void*/*outputBuffer*/, void* inputBuffer, unsigned int nBufferSize, double streamTime, RtAudioStreamStatus status, void* userdata);
 
 using namespace std;
 class AudioControlerPrivate
@@ -183,6 +193,67 @@ bool AudioControler::started() const
     return d->started;
 }
 
+void AudioControler::startPlayPcm(char* sFile)
+{
+    //std::cout << "start startPlayPcm....11111111111111111" << std::endl;
+
+    if (nullptr == d->outAudio)
+    {
+        std::cout << "start play return null...." << std::endl;
+        return;
+    }
+
+    OutputData data;
+    data.fd = fopen(sFile, "rb");
+    if (!data.fd) {
+        std::cout << "Unable to find or open file!\n";
+        return;
+    }
+
+    data.channels = 1;
+
+    d->outAudio->showWarnings(true);
+    d->outBufferFrames = 512;
+    d->outParams.nChannels = 1;
+    d->outParams.firstChannel = 0;
+    d->outParams.deviceId = -1;
+    d->outParams.deviceId = d->outAudio->getDefaultOutputDevice();
+
+    
+    for (auto i = 0; i < d->outAudio->getDeviceCount(); i++)
+    {
+        auto dev = d->outAudio->getDeviceInfo(d->audio->getDeviceIds().at(i));
+        if (dev.name.find(gDeviceNameOut, 0) != string::npos)
+        {
+            d->iParams.deviceId = dev.ID;
+            break;
+        }
+    }
+
+    if (d->outParams.deviceId == -1)
+    {
+        std::cout << "don't find the device!";
+        return;
+    }
+
+    
+    if (!d->outAudio->isStreamOpen())
+        d->outAudio->openStream(&d->outParams, nullptr, FORMAT, 16000, &d->outBufferFrames, outputPcm, (void*)&data);
+
+    if (!d->outAudio->isStreamRunning())
+        d->outAudio->startStream();
+
+    while (1) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        if (d->outAudio->isStreamRunning() == false)
+        {
+            cout << "play finished.....";
+            break;
+        }
+    }
+
+    fclose(data.fd);
+}
 void AudioControler::startPlay(char* pcmData, int len)
 {
     std::cout << "start play...." << std::endl;
@@ -200,36 +271,15 @@ void AudioControler::startPlay(char* pcmData, int len)
     d->outParams.firstChannel = 0;
     d->outParams.deviceId = -1;
     d->outParams.deviceId = d->outAudio->getDefaultOutputDevice();
-
-    //std::cout << "getDefaultInputDevice " << d->audio->getDefaultInputDevice()<< std::endl << std::endl;
-
+    
+    
     for (auto i = 0; i < d->outAudio->getDeviceCount(); i++)
     {
         auto dev = d->outAudio->getDeviceInfo(d->audio->getDeviceIds().at(i));
-        if (dev.name.find(gDeviceName, 0) != string::npos)
+        if (dev.name.find(gDeviceNameOut, 0) != string::npos)
         {
             d->iParams.deviceId = dev.ID;
-            std::cout << "" << d->outAudio->getApiName(d->outAudio->getCurrentApi()) << std::endl;
-
-            std::cout << "device name: " << dev.name <<
-                " inputChannels " << dev.outputChannels << " isDefaultInput " << dev.isDefaultOutput
-                << " isDefaultOutput " << dev.isDefaultOutput << " duplexChannels " << dev.duplexChannels
-                << " outputChannels " << dev.outputChannels << " cur sampleRate " << dev.currentSampleRate
-                << " ID " << dev.ID << " native format " << dev.nativeFormats
-                << " preferance fs " << dev.preferredSampleRate << std::endl;
-            auto sampleBits = dev.nativeFormats;
-            std::cout << "sample bit" << sampleBits << std::endl;
-            std::cout << std::endl << std::endl;
-            auto sampleRates = dev.sampleRates;
-
-            std::cout << "support sampleRates: ";
-            for (auto fs : sampleRates)
-            {
-                std::cout << fs << " ";
-            }
-            std::cout << std::endl << std::endl;
-
-            //break;
+            break;
         }
     }
 
@@ -276,40 +326,20 @@ void AudioControler::start()
     d->iParams.nChannels = 1;
     d->iParams.firstChannel = 0;
 	d->iParams.deviceId = -1;
-    //d->iParams.deviceId = d->audio->getDefaultInputDevice();
+    d->iParams.deviceId = d->audio->getDefaultInputDevice();
+
     
-	//std::cout << "getDefaultInputDevice " << d->audio->getDefaultInputDevice()<< std::endl << std::endl;
-
-
     for (auto i = 0; i < d->audio->getDeviceCount(); i++)
     {
         auto dev = d->audio->getDeviceInfo(d->audio->getDeviceIds().at(i));
-        if (dev.name.find(gDeviceName, 0) != string::npos)
+        if (dev.name.find(gDeviceNameIn, 0) != string::npos)
         {
             d->iParams.deviceId = dev.ID;
-            std::cout << "" << d->audio->getApiName( d->audio->getCurrentApi()) << std::endl;
-          
-            std::cout << "device name: " << dev.name <<
-                " inputChannels " << dev.inputChannels << " isDefaultInput " << dev.isDefaultInput
-                << " isDefaultOutput " << dev.isDefaultOutput << " duplexChannels " << dev.duplexChannels
-                << " outputChannels " << dev.outputChannels << " cur sampleRate " << dev.currentSampleRate
-                << " ID " << dev.ID << " native format " << dev.nativeFormats
-                << " preferance fs " << dev.preferredSampleRate << std::endl;
-		   auto sampleBits = dev.nativeFormats;
-			std::cout<<"sample bit" << sampleBits << std::endl;
-			std::cout<< std::endl<< std::endl;
-            auto sampleRates = dev.sampleRates;
-			
-            std::cout << "support sampleRates: ";
-            for (auto fs : sampleRates)
-            {
-                std::cout << fs << " ";
-            }
-            std::cout << std::endl << std::endl;
-
-            //break;
+            string des;
+            Encoding::Utf82GBK(dev.name, des);
+            cout << "device name:" << des << endl;
+            break;
         }
-
     }
 
 
@@ -389,7 +419,23 @@ int input(void * /*outputBuffer*/, void *inputBuffer, unsigned int nBufferFrames
     return 0;
 }
 
+int outputPcm(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime, RtAudioStreamStatus status, void* data)
+{
+    OutputData* oData = (OutputData*)data;
 
+    // In general, it's not a good idea to do file input in the audio
+    // callback function but I'm doing it here because I don't know the
+    // length of the file we are reading.
+    unsigned int count = fread(outputBuffer, oData->channels * sizeof(MY_TYPE), nBufferFrames, oData->fd);
+    if (count < nBufferFrames) {
+        unsigned int bytes = (nBufferFrames - count) * oData->channels * sizeof(MY_TYPE);
+        unsigned int startByte = count * oData->channels * sizeof(MY_TYPE);
+        memset((char*)(outputBuffer)+startByte, 0, bytes);
+        return 1;
+    }
+
+    return 0;
+}
 int output(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime, RtAudioStreamStatus status, void* userdata)
 {
 
@@ -398,7 +444,7 @@ int output(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, do
     if (d->outPlayTotal < nBufferFrames * 1 * sizeof(MY_TYPE) + d->outPlayReadCount)
     {   
         memcpy(outputBuffer, d->outAudioBuffer + d->outPlayReadCount, d->outPlayTotal - d->outPlayReadCount);       
-        memset((char*)(outputBuffer), 0, nBufferFrames * 1 * sizeof(MY_TYPE) - d->outPlayTotal + d->outPlayReadCount);
+        memset((char*)outputBuffer + d->outPlayTotal - d->outPlayReadCount, 0, nBufferFrames * 1 * sizeof(MY_TYPE) - d->outPlayTotal + d->outPlayReadCount);
 
         delete d->outAudioBuffer;
         d->outAudioBuffer = nullptr;

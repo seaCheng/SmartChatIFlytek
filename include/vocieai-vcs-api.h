@@ -159,6 +159,8 @@ extern "C" {
 
 	VCS_API void VCS_playPcm(char * pcmData, int len);
 
+	VCS_API void VCS_playPcmFile(char* sFile);
+
 	VCS_API void VCS_text_to_speech(char * pText, int len);
 
 #ifdef __cplusplus

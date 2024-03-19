@@ -57,6 +57,8 @@ public:
     
     void startPlay(char *pcmData, int len);
 
+    void startPlayPcm(char* sFile);
+
 private:
     AudioControlerPrivate* d;
 };

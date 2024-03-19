@@ -122,7 +122,7 @@ int main()
         {
             VCS_StopRecord();
             
-            VCS_SaveCache("./test.wav");
+            //VCS_SaveCache("./test.wav");
             bStart = false;
             break;
         }
